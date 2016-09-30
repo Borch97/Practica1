@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import java.io.File;
 
+import com.sun.jna.*;
 import uk.co.caprica.vlcj.*;
 import uk.co.caprica.vlcj.binding.LibVlc;
 import uk.co.caprica.vlcj.component.EmbeddedMediaPlayerComponent;
