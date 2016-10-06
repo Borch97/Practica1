@@ -71,6 +71,8 @@ public class ListaDeReproduccion implements ListModel<String> {
 	 */
 	public void add(File f){
 		ficherosLista.add(f);
+		avisarAnyadido(ficherosLista.size()-1);
+
 	}
 	
 	/**
@@ -126,6 +128,7 @@ public class ListaDeReproduccion implements ListModel<String> {
 				Matcher concuerda = patron.matcher(f.getName());
 				if(concuerda.find()){
 					ficherosLista.add(f);
+					avisarAnyadido(ficherosLista.size()-1);
 				}
 			}
 		}

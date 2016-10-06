@@ -5,6 +5,8 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import org.jvnet.jaxb2_commons.lang.ToString;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -116,18 +118,23 @@ try{
 				fc.setCurrentDirectory(new File(path));
 				int returnVal = fc.showOpenDialog(getParent());
 				if(returnVal == JFileChooser.APPROVE_OPTION){
-					File selectedFile = fc.getSelectedFile();
-					logger.log(Level.INFO, "Archivo: " + selectedFile.getName());
-					//File[] selectedFiles = fc.getSelectedFiles();
-					//logger.log(Level.INFO, "Comenzar array de: " + selectedFiles.length);
-					/*for (File f : selectedFiles) {
+					File[] selectedFiles = fc.getSelectedFiles();
+					logger.log(Level.INFO, " " + listaRepVideos.size());
+					logger.log(Level.INFO, "Comenzar array de: " + selectedFiles.length);
+					for (File f : selectedFiles) {
 						logger.log(Level.INFO, "Datos: " + f);
-						listaRepVideos.add(f);
+						listaRepVideos.add((f));
+						logger.log(Level.INFO, " listarep " + listaRepVideos.size());
+						//vp.lCanciones = new JList<String>( vp.listaRepVideos );
+						//logger.log(Level.INFO,"Lcanciones " + vp.lCanciones.rep);
 						lCanciones.repaint();
-					}*/
+					}			
+					//vp.lCanciones = new JList(vp.listaRepVideos);
+					logger.log(Level.INFO, "Salto de bucle");
+				}
 				}
 			}
-		});
+		);
 		bAtras.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -235,28 +242,32 @@ try{
 	private static File pedirCarpeta() {
 		VideoPlayer vp = new VideoPlayer();
 		final JFileChooser fc = new JFileChooser();
+		/*fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+		fc.setMultiSelectionEnabled(true);
 		fc.setCurrentDirectory(new File(path));
 		int returnVal = fc.showOpenDialog(vp.getParent());
-		vp.lCanciones.setModel(vp.listaRepVideos);
 		if(returnVal == JFileChooser.APPROVE_OPTION){
 			/*File selectedFile = fc.getSelectedFile();
 			logger.log(Level.INFO, "Archivo: " + selectedFile.getName());
 			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
 			vp.listaRepVideos.add(selectedFile);
 			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
-			vp.lCanciones.repaint();*/
+			vp.lCanciones.repaint();
 			File[] selectedFiles = fc.getSelectedFiles();
 			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
 			logger.log(Level.INFO, "Comenzar array de: " + selectedFiles.length);
 			for (File f : selectedFiles) {
 				logger.log(Level.INFO, "Datos: " + f);
-				vp.listaRepVideos.add(f);
-				logger.log(Level.INFO, " listarep" + vp.listaRepVideos.size());
-				//vp.lCanciones.repaint();
-			}
+				vp.listaRepVideos.add((f));
+				logger.log(Level.INFO, " listarep " + vp.listaRepVideos.size());
+				//vp.lCanciones = new JList<String>( vp.listaRepVideos );
+				//logger.log(Level.INFO,"Lcanciones " + vp.lCanciones.rep);
+				vp.lCanciones.repaint();
+			}			
+			//vp.lCanciones = new JList(vp.listaRepVideos);
 			logger.log(Level.INFO, "Salto de bucle");
-		}
-		return null;
+		}*/
+		return fc.getCurrentDirectory();
 	}
 
 		private static String ficheros;
@@ -311,6 +322,7 @@ try{
 				miVentana.listaRepVideos.add(path, "" );
 				miVentana.listaRepVideos.irAPrimero();
 				miVentana.lanzaVideo();
+				
 			}
 		});
 	}
