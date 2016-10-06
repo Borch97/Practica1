@@ -2,8 +2,8 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2016-10-06T08:26:05</date>
-  <millis>1475735165558</millis>
+  <date>2016-10-06T18:19:48</date>
+  <millis>1475770788643</millis>
   <sequence>7</sequence>
   <logger>ud.prog3.pr01.ListaDeReproduccion</logger>
   <level>INFO</level>
@@ -13,8 +13,8 @@
   <message>A?adiendo ficheros con filtro </message>
 </record>
 <record>
-  <date>2016-10-06T08:26:05</date>
-  <millis>1475735165559</millis>
+  <date>2016-10-06T18:19:48</date>
+  <millis>1475770788645</millis>
   <sequence>8</sequence>
   <logger>ud.prog3.pr01.ListaDeReproduccion</logger>
   <level>INFO</level>
@@ -24,8 +24,8 @@
   <message>A?adiendo ficheros con filtro </message>
 </record>
 <record>
-  <date>2016-10-06T08:26:05</date>
-  <millis>1475735165560</millis>
+  <date>2016-10-06T18:19:48</date>
+  <millis>1475770788645</millis>
   <sequence>9</sequence>
   <logger>ud.prog3.pr01.ListaDeReproduccion</logger>
   <level>INFO</level>

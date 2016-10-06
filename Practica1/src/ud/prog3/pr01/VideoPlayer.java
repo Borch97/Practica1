@@ -9,6 +9,7 @@ import org.jvnet.jaxb2_commons.lang.ToString;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -36,11 +37,11 @@ public class VideoPlayer extends JFrame {
 	private static Logger logger = Logger.getLogger(VideoPlayer.class.getName());
 	private static final boolean ANYADIR_A_FIC_LOG = false;
 	static{
-try{
-	logger.addHandler(new FileHandler(VideoPlayer.class.getName() + ".log.xml", ANYADIR_A_FIC_LOG));
-}	catch(SecurityException | IOException e){
-	logger.log(Level.SEVERE, "Error en creación del log");
-}
+		try{
+			logger.addHandler(new FileHandler(VideoPlayer.class.getName() + ".log.xml", ANYADIR_A_FIC_LOG));
+		}catch(SecurityException | IOException e){
+			logger.log(Level.SEVERE, "Error en creación del log");
+		}
 
 }
 	
@@ -235,6 +236,8 @@ try{
 		} else {
 			lCanciones.setSelectedIndices( new int[] {} );
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		lMensaje.setText(sdf.format(listaRepVideos.getFic(listaRepVideos.getFicSeleccionado()).lastModified()));
 	}
 	
 	// Pide interactivamente una carpeta para coger vídeos
@@ -242,31 +245,6 @@ try{
 	private static File pedirCarpeta() {
 		VideoPlayer vp = new VideoPlayer();
 		final JFileChooser fc = new JFileChooser();
-		/*fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
-		fc.setMultiSelectionEnabled(true);
-		fc.setCurrentDirectory(new File(path));
-		int returnVal = fc.showOpenDialog(vp.getParent());
-		if(returnVal == JFileChooser.APPROVE_OPTION){
-			/*File selectedFile = fc.getSelectedFile();
-			logger.log(Level.INFO, "Archivo: " + selectedFile.getName());
-			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
-			vp.listaRepVideos.add(selectedFile);
-			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
-			vp.lCanciones.repaint();
-			File[] selectedFiles = fc.getSelectedFiles();
-			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
-			logger.log(Level.INFO, "Comenzar array de: " + selectedFiles.length);
-			for (File f : selectedFiles) {
-				logger.log(Level.INFO, "Datos: " + f);
-				vp.listaRepVideos.add((f));
-				logger.log(Level.INFO, " listarep " + vp.listaRepVideos.size());
-				//vp.lCanciones = new JList<String>( vp.listaRepVideos );
-				//logger.log(Level.INFO,"Lcanciones " + vp.lCanciones.rep);
-				vp.lCanciones.repaint();
-			}			
-			//vp.lCanciones = new JList(vp.listaRepVideos);
-			logger.log(Level.INFO, "Salto de bucle");
-		}*/
 		return fc.getCurrentDirectory();
 	}
 

@@ -1,37 +1,4 @@
 <?xml version="1.0" encoding="windows-1250" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-<record>
-  <date>2016-10-06T08:26:14</date>
-  <millis>1475735174274</millis>
-  <sequence>12</sequence>
-  <logger>ud.prog3.pr01.VideoPlayer</logger>
-  <level>INFO</level>
-  <class>ud.prog3.pr01.VideoPlayer</class>
-  <method>pedirCarpeta</method>
-  <thread>14</thread>
-  <message> 0</message>
-</record>
-<record>
-  <date>2016-10-06T08:26:14</date>
-  <millis>1475735174275</millis>
-  <sequence>13</sequence>
-  <logger>ud.prog3.pr01.VideoPlayer</logger>
-  <level>INFO</level>
-  <class>ud.prog3.pr01.VideoPlayer</class>
-  <method>pedirCarpeta</method>
-  <thread>14</thread>
-  <message>Comenzar array de: 0</message>
-</record>
-<record>
-  <date>2016-10-06T08:26:14</date>
-  <millis>1475735174276</millis>
-  <sequence>14</sequence>
-  <logger>ud.prog3.pr01.VideoPlayer</logger>
-  <level>INFO</level>
-  <class>ud.prog3.pr01.VideoPlayer</class>
-  <method>pedirCarpeta</method>
-  <thread>14</thread>
-  <message>Salto de bucle</message>
-</record>
 </log>
