@@ -1,4 +1,37 @@
 <?xml version="1.0" encoding="windows-1250" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
+<record>
+  <date>2016-10-06T08:26:05</date>
+  <millis>1475735165558</millis>
+  <sequence>7</sequence>
+  <logger>ud.prog3.pr01.ListaDeReproduccion</logger>
+  <level>INFO</level>
+  <class>ud.prog3.pr01.ListaDeReproduccion</class>
+  <method>add</method>
+  <thread>14</thread>
+  <message>A?adiendo ficheros con filtro </message>
+</record>
+<record>
+  <date>2016-10-06T08:26:05</date>
+  <millis>1475735165559</millis>
+  <sequence>8</sequence>
+  <logger>ud.prog3.pr01.ListaDeReproduccion</logger>
+  <level>INFO</level>
+  <class>ud.prog3.pr01.ListaDeReproduccion</class>
+  <method>add</method>
+  <thread>14</thread>
+  <message>A?adiendo ficheros con filtro </message>
+</record>
+<record>
+  <date>2016-10-06T08:26:05</date>
+  <millis>1475735165560</millis>
+  <sequence>9</sequence>
+  <logger>ud.prog3.pr01.ListaDeReproduccion</logger>
+  <level>INFO</level>
+  <class>ud.prog3.pr01.ListaDeReproduccion</class>
+  <method>add</method>
+  <thread>14</thread>
+  <message>A?adiendo ficheros con filtro </message>
+</record>
 </log>

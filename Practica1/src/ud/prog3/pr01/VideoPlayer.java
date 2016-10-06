@@ -6,6 +6,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.sun.jna.*;
 import uk.co.caprica.vlcj.*;
@@ -25,6 +30,17 @@ import uk.co.caprica.vlcj.player.embedded.windows.Win32FullScreenStrategy;
  */
 public class VideoPlayer extends JFrame {
 	private static final long serialVersionUID = 1L;
+	
+	private static Logger logger = Logger.getLogger(VideoPlayer.class.getName());
+	private static final boolean ANYADIR_A_FIC_LOG = false;
+	static{
+try{
+	logger.addHandler(new FileHandler(VideoPlayer.class.getName() + ".log.xml", ANYADIR_A_FIC_LOG));
+}	catch(SecurityException | IOException e){
+	logger.log(Level.SEVERE, "Error en creación del log");
+}
+
+}
 	
 	// Varible de ventana principal de la clase
 	private static VideoPlayer miVentana;
@@ -48,6 +64,7 @@ public class VideoPlayer extends JFrame {
 		pbVideo = new JProgressBar( 0, 10000 );
 		cbAleatorio = new JCheckBox("Rep. aleatoria");
 		lMensaje = new JLabel( "" );
+		JFileChooser fc = new JFileChooser();
 		JPanel pBotonera = new JPanel();
 		JButton bAnyadir = new JButton( new ImageIcon( VideoPlayer.class.getResource("img/Button Add.png")) );
 		JButton bAtras = new JButton( new ImageIcon( VideoPlayer.class.getResource("img/Button Rewind.png")) );
@@ -65,6 +82,8 @@ public class VideoPlayer extends JFrame {
         };
 
 		// Configuración de componentes/contenedores
+        fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        fc.setMultiSelectionEnabled(true);
 		setTitle("Video Player - Deusto Ingeniería");
 		setLocationRelativeTo( null );  // Centra la ventana en la pantalla
 		setDefaultCloseOperation( JFrame.DISPOSE_ON_CLOSE );
@@ -92,17 +111,33 @@ public class VideoPlayer extends JFrame {
 				File fPath = pedirCarpeta();
 				if (fPath==null) return;
 				path = fPath.getAbsolutePath();
-				// TODO: pedir ficheros por ventana de entrada (JOptionPane)
-				// ficheros = ...
 				listaRepVideos.add( path, ficheros );
 				lCanciones.repaint();
+				fc.setCurrentDirectory(new File(path));
+				int returnVal = fc.showOpenDialog(getParent());
+				if(returnVal == JFileChooser.APPROVE_OPTION){
+					File selectedFile = fc.getSelectedFile();
+					logger.log(Level.INFO, "Archivo: " + selectedFile.getName());
+					//File[] selectedFiles = fc.getSelectedFiles();
+					//logger.log(Level.INFO, "Comenzar array de: " + selectedFiles.length);
+					/*for (File f : selectedFiles) {
+						logger.log(Level.INFO, "Datos: " + f);
+						listaRepVideos.add(f);
+						lCanciones.repaint();
+					}*/
+				}
 			}
 		});
 		bAtras.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				paraVideo();
+				if(cbAleatorio.isSelected()){
+					listaRepVideos.irARandom();
+				}
+				else{
 				listaRepVideos.irAAnterior();
+				}
 				lanzaVideo();
 			}
 		});
@@ -110,7 +145,12 @@ public class VideoPlayer extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				paraVideo();
+				if(cbAleatorio.isSelected()){
+					listaRepVideos.irARandom();
+				}
+				else{
 				listaRepVideos.irASiguiente();
+				}
 				lanzaVideo();
 			}
 		});
@@ -119,9 +159,9 @@ public class VideoPlayer extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (mediaPlayerComponent.getMediaPlayer().isPlayable()) {
 					if (mediaPlayerComponent.getMediaPlayer().isPlaying()) {
-						// TODO: hacer pausa
+						mediaPlayerComponent.getMediaPlayer().setPause(true);
 					} else {
-						// TODO: hacer play
+						mediaPlayerComponent.getMediaPlayer().setPause(false);
 					}
 				} else {
 					lanzaVideo();
@@ -193,7 +233,29 @@ public class VideoPlayer extends JFrame {
 	// Pide interactivamente una carpeta para coger vídeos
 	// (null si no se selecciona)
 	private static File pedirCarpeta() {
-		// TODO: Pedir la carpeta usando JFileChooser
+		VideoPlayer vp = new VideoPlayer();
+		final JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File(path));
+		int returnVal = fc.showOpenDialog(vp.getParent());
+		vp.lCanciones.setModel(vp.listaRepVideos);
+		if(returnVal == JFileChooser.APPROVE_OPTION){
+			/*File selectedFile = fc.getSelectedFile();
+			logger.log(Level.INFO, "Archivo: " + selectedFile.getName());
+			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
+			vp.listaRepVideos.add(selectedFile);
+			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
+			vp.lCanciones.repaint();*/
+			File[] selectedFiles = fc.getSelectedFiles();
+			logger.log(Level.INFO, " " + vp.listaRepVideos.size());
+			logger.log(Level.INFO, "Comenzar array de: " + selectedFiles.length);
+			for (File f : selectedFiles) {
+				logger.log(Level.INFO, "Datos: " + f);
+				vp.listaRepVideos.add(f);
+				logger.log(Level.INFO, " listarep" + vp.listaRepVideos.size());
+				//vp.lCanciones.repaint();
+			}
+			logger.log(Level.INFO, "Salto de bucle");
+		}
 		return null;
 	}
 
@@ -240,11 +302,13 @@ public class VideoPlayer extends JFrame {
 			@Override
 			public void run() {
 				miVentana = new VideoPlayer();
-				// Descomentar estas dos líneas para ver un vídeo de ejemplo
-				// miVentana.listaRepVideos.ficherosLista = new ArrayList<File>();
-				// miVentana.listaRepVideos.ficherosLista.add( new File("test/res/[Official Video] Daft Punk - Pentatonix.mp4") );				
+				//Descomentar estas dos líneas para ver un vídeo de ejemplo
+				//miVentana.listaRepVideos.ficherosLista = new ArrayList<File>();
+				//miVentana.listaRepVideos.ficherosLista.add( new File("test/res/[Official Video] Daft Punk - Pentatonix.mp4") );				
+				//miVentana.listaRepVideos.ficherosLista.add( new File("test/res/No del grupo.mp4") );
+				//miVentana.listaRepVideos.ficherosLista.add( new File("test/res/Fichero erroneo Pentatonix.mp4") );				
 				miVentana.setVisible( true );
-				miVentana.listaRepVideos.add( path, ficheros );
+				miVentana.listaRepVideos.add(path, "" );
 				miVentana.listaRepVideos.irAPrimero();
 				miVentana.lanzaVideo();
 			}

@@ -3,6 +3,7 @@ package ud.prog3.pr01;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -115,7 +116,7 @@ public class ListaDeReproduccion implements ListModel<String> {
 		logger.log(Level.INFO, "Añadiendo ficheros con filtro " + filtroFicheros);
 		filtroFicheros = filtroFicheros.replaceAll("\\*", "\\.*");
 		logger.log(Level.INFO, "Añadiendo ficheros con filtro " + filtroFicheros);
-		ArrayList<File> fTest = new ArrayList<File>();
+		//ArrayList<File> fTest = new ArrayList<File>();
 		File fInic = new File(carpetaFicheros);
 		Pattern patron = Pattern.compile(filtroFicheros);
 		//logger.log(Level.SEVERE, "Fallo de compilación del patrón ");
@@ -124,14 +125,32 @@ public class ListaDeReproduccion implements ListModel<String> {
 				logger.log(Level.FINE, "Procesando fichero " + f.getName());
 				Matcher concuerda = patron.matcher(f.getName());
 				if(concuerda.find()){
-					fTest.add(f);
+					ficherosLista.add(f);
 				}
 			}
 		}
-		return fTest.size();
+		return ficherosLista.size();
 	}
 	
+	public int aleatorio(int min, int max){
+		Random random = new Random();
+		int aleatorio = (int)random.nextInt(max - min + 1) + min;
+		return aleatorio;
+	}
 	
+	/**Selecciona un fichero aleatorio de la lista de reproducción.
+	 * @return true si la selección es correcta, false si hay error y no se puede seleccionar
+	 */
+	public boolean irARandom(){
+		boolean correcto = false;
+		ficheroEnCurso = aleatorio(0, ficherosLista.size()-1);
+		if(ficheroEnCurso >= 0 && ficheroEnCurso < ficherosLista.size() - 1 ){
+			correcto = true;
+		}
+				
+		
+		return correcto;
+	}
 	//
 	// Métodos de selección
 	//

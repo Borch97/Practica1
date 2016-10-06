@@ -22,7 +22,8 @@ public class ListaDeReproduccionTest {
 	private final File FIC_TEST2 = new File("test/res/Fichero erroneo Pentatonix.mp4");
 	
 	@Before
-	public void SetUp() throws Exception{
+	public void SetUp() throws 
+	Exception{
 		lr1 = new ListaDeReproduccion();
 		lr2 = new ListaDeReproduccion();
 		lr2.add(FIC_TEST1);
@@ -71,5 +72,13 @@ public class ListaDeReproduccionTest {
 		assertEquals(2,lr.add(carpetaTest, filtroTest));
 		
 		//fail("Metodo sin acabar");
+	}
+	@Test
+	public void testAleatorio(){
+		String carpetaTest = "test/res/";
+		String filtroTest = "*Pentatonix*.mp4";
+		ListaDeReproduccion lr = new ListaDeReproduccion();
+		lr.add(carpetaTest, filtroTest);
+		assertEquals(true, lr.irARandom());
 	}
 }
